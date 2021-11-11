@@ -11,70 +11,79 @@ import java.util.stream.IntStream;
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
+    private TextView debugView;
     private int QuestionPointer = 0;
 
 
     private final Question[] questions = new Question[]{
-            new Question(R.string.question1, true),
-            new Question(R.string.question2, true),
-            new Question(R.string.question3, true),
+            new Question(R.string.question1, false),
+            new Question(R.string.question2, false),
+            new Question(R.string.question3, false),
             new Question(R.string.question4, true),
-            new Question(R.string.question5, true),
             new Question(R.string.question6, true),
             new Question(R.string.question7, true),
-            new Question(R.string.question8, true),
-            new Question(R.string.question9, true),
-            new Question(R.string.question10, true),
+            //new Question(R.string.question8, true),
+            //new Question(R.string.question5, true),
+            //new Question(R.string.question9, true),
+            //new Question(R.string.question10, true),
 
 
     };
-    private final int QuestionsNumber = questions.length;
+    private final int QuestionsNumber = questions.length;   //size of array wih questions
+    private int buttonPressed = 0;                          //keep state if true/false button was pressed
+    public boolean buttonState;                            //keep state which true/false button was pressed
+    //public int[] answers = new int[QuestionsNumber];
+    public int[] IsAnswered = new int[QuestionsNumber];     //array that control if user answered to direct question
+    public boolean answer;                                  //
+    public int AnsweredQuestions=0;
+    public int score = 0;
 
-    private int buttonPressed = 0;
-    private boolean buttonState;
-    int n = 10;
-    private int[] answers = new int[QuestionsNumber];
-    private boolean answer;
-    private int AnsweredQuestions=0;
-    private int sum = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.question_text);
+        debugView = findViewById(R.id.score_text);
 
         textView.setText(questions[QuestionPointer].getTextId());
     }
 
 
-
-
     public void NextQuestion(View view) {
         if (AnsweredQuestions < QuestionsNumber) {
-            if (buttonPressed == 1) {
-                answer = questions[QuestionPointer].isAnswer();
-                if (answer == buttonState)
-                    answers[QuestionPointer] = 1;
-                else
-                    answers[QuestionPointer] = -1;
+            if (IsAnswered[QuestionPointer]!=1) {
+                AnsweredQuestions+=1;
+                if (buttonPressed == 1) {
+                    answer = questions[QuestionPointer].isAnswer();
+                    if (answer == buttonState) {
+                        score+=1;
+                        IsAnswered[QuestionPointer]=1;
+                    }else{
+                        IsAnswered[QuestionPointer]=1;
+                        score-=1;
+                    }
+
+                }
+                debugView.setText(Integer.toString(score));
+
             }
-        }else {
-            
-            for (int value : answers) {
-                sum += value;
-            }
-            textView.setText(Integer.toString(sum));
+
+
+            if (QuestionPointer == QuestionsNumber-1)
+                QuestionPointer = 0;
+            else
+                QuestionPointer += 1;
+
+            changeQuestion(QuestionPointer);
+
+        }else{
+            debugView.setText("DUUUUPA");
+            textView.setText("DUPA DUPA");
         }
 
 
-        if (QuestionPointer == QuestionsNumber-1)
-            QuestionPointer = 0;
-        else
-            QuestionPointer += 1;
-
-        changeQuestion(QuestionPointer);
-
+        buttonPressed = 0;
     }
 
     public void PreviousQuestion(View view) {
@@ -84,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             QuestionPointer -= 1;
 
         changeQuestion(QuestionPointer);
+        buttonPressed = 0;
     }
 
     public void changeQuestion(int qstPointer) {
