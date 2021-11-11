@@ -9,13 +9,58 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Dupa"
+        android:textAlignment="center"
+        android:textSize="16sp"
+
+        />
+
+
+
+    <TextView
         android:id="@+id/score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:text="dupa"
+        android:text="Result:"
         android:textAlignment="center"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/correct_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Correct answers:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/green"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/incorrect_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Incorrect answers:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/question_text"
@@ -73,5 +118,14 @@
 
 
 </LinearLayout>
+
+    <Button
+        android:id="@+id/restart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESTART"
+        android:textStyle="bold"
+        android:onClick="reset"
+        android:visibility="gone"/>
 
     </LinearLayout>
