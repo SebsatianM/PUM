@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CounterAppJava</string>
+    <string name="_0">0</string>
+    <string name="reset">Reset</string>
+    <string name="count_down">Count Down</string>
+    <string name="count_up">Count Up</string>
+</resources>
