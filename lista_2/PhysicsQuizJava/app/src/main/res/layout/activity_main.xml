@@ -19,6 +19,15 @@
 
         />
 
+    <Button
+        android:id="@+id/btnBrowse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="BROWSE"
+        android:onClick="browseAnswer">
+
+    </Button>
 
 
     <TextView
@@ -47,6 +56,17 @@
         android:textColor="@color/green"
         android:visibility="gone"
         />
+
+        <TextView
+            android:id="@+id/cheatedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginBottom="20sp"
+            android:visibility="gone"
+            >
+        </TextView>
 
     <TextView
         android:id="@+id/incorrect_answers"
@@ -128,4 +148,44 @@
         android:onClick="reset"
         android:visibility="gone"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/btnCheat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="cheat"
+            android:layout_marginHorizontal="5sp"
+            android:onClick="showCheatActivity"
+            >
+        </Button>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/btnShow"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="show_correct_answer"
+            android:layout_marginHorizontal="5sp"
+            android:visibility="invisible"
+            android:onClick="showCorrectAnswer"
+            >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

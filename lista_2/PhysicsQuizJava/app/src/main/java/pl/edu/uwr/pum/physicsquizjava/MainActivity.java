@@ -1,6 +1,10 @@
 package pl.edu.uwr.pum.physicsquizjava;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
+
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -8,14 +12,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 
-import java.util.stream.IntStream;
+
+
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView,resultView,correctView,incorrectView,debugView;
     private Button trueButton,falseButton,nextButton,previousButton,restartButton;
     private int QuestionPointer;
-
+    public static final String ANSWER = "pl.edu.uwr.pum.physicsquizjava.ANSWER";
 
     private final Question[] questions = new Question[]{
             new Question(R.string.question1, true),
@@ -229,6 +236,24 @@ public class MainActivity extends AppCompatActivity {
         saveState.putInt("buttonPressed_state", buttonPressed);
         saveState.putBoolean("buttonState_state", buttonState);
         saveState.putBoolean("answer_state", answer);
+    }
+
+    public void showCheatActivity(View view) {
+        Intent intent = new Intent(this, CheatActivity.class);
+        startActivity(intent);
+    }
+
+    public void showCorrectAnswer(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Correct Answer");
+        alertDialog.setMessage(Boolean.toString(questions[QuestionPointer].isAnswer()));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.show();
+    }
+
+    public void browseAnswer(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + textView.getText().toString())));
     }
 
 }
