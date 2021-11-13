@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+
+    <Button
+        android:id="@+id/browse_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="BROWSE"
+        android:onClick="browseAnswer">
+
+    </Button>
+
+
+    <TextView
+        android:id="@+id/score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Result:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/correct_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Correct answers:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/green"
+        android:visibility="gone"
+        />
+
+        <TextView
+            android:id="@+id/cheatedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginBottom="20sp"
+            android:visibility="gone"
+            >
+        </TextView>
+
+    <TextView
+        android:id="@+id/incorrect_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Incorrect answers:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/cheated_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Cheated answers:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/question_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="@string/question1"
+        android:textAlignment="center"
+        android:textSize="16sp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <Button
+            android:id="@+id/true_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trueString"
+            android:textStyle="bold"
+            android:onClick="changeStateTrue"
+            />
+        <Button
+            android:id="@+id/false_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/falseString"
+            android:textStyle="bold"
+            android:onClick="changeStateFalse"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginHorizontal="5sp"
+            android:id="@+id/previous_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="previous"
+            android:onClick="PreviousQuestion"
+            />
+
+        <Button
+            android:layout_marginHorizontal="5sp"
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:onClick="NextQuestion"/>
+
+
+
+
+</LinearLayout>
+
+    <Button
+        android:id="@+id/restart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESTART"
+        android:textStyle="bold"
+        android:onClick="reset"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/btnCheat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="cheat"
+            android:layout_marginHorizontal="5sp"
+            android:onClick="showCheatActivity"
+            >
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/showAnswer_button"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Show correct answer"
+            android:layout_marginHorizontal="5sp"
+            android:visibility="gone"
+            android:onClick="showCorrectAnswer"
+            >
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>

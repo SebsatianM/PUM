@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PhysicsQuizJava</string>
+    <string name="trueString">TRUE</string>
+    <string name="falseString">FALSE</string>
+    <string name="correct_answer">CORRECT</string>
+    <string name="next">NEXT</string>
+    <string name="incorrect_answer">INCORRECT</string>
+
+    <string name="question1">Was relative theory created by Isaac Newton?</string>
+    <string name="question2">Can a fire have a shadow?</string>
+    <string name="question3">Can air make shadows?</string>
+    <string name="question4">Mass and weight are the same?</string>
+    <string name="question5">Is friction a force that opposes motion?</string>
+    <string name="question6">If an object is accelerating, a net force must be acting upon it?</string>
+    <string name="question7">Force and pressure are the same thing?</string>
+    <string name="question8">Is the earth gravity accelerating all satellites in orbit towards its center?</string>
+    <string name="question9">Is inertia directly proportional to an object mass?</string>
+    <string name="question10">Is linear momentum always conserved?</string>
+
+</resources>
