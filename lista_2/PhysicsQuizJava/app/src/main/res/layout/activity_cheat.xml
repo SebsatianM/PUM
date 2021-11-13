@@ -1,20 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".CheatActivity">
 
     <TextView
-        android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="67sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:text="Your score will be reduced!"
+        >
+
+    </TextView>
+    <TextView
+        android:id="@+id/cheatedAnswerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        >
+
+    </TextView>
+    <Button
+        android:id="@+id/showCheatAnswer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SHOW THE ANSWER ANYWAY"
+        android:onClick="showCheatedAnswer"
+        android:visibility="visible"
+>
+
+    </Button>
+
+</LinearLayout>

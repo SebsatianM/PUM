@@ -8,22 +8,13 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/debug"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:text="Dupa"
-        android:textAlignment="center"
-        android:textSize="16sp"
 
-        />
 
     <Button
-        android:id="@+id/btnBrowse"
+        android:id="@+id/browse_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:text="BROWSE"
         android:onClick="browseAnswer">
 
@@ -81,7 +72,17 @@
         />
 
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/cheated_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="Cheated answers:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        />
     <TextView
         android:id="@+id/question_text"
         android:layout_width="wrap_content"
@@ -176,16 +177,17 @@
         >
 
         <Button
-            android:id="@+id/btnShow"
+            android:id="@+id/showAnswer_button"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="show_correct_answer"
+            android:text="Show correct answer"
             android:layout_marginHorizontal="5sp"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:onClick="showCorrectAnswer"
             >
         </Button>
+
     </LinearLayout>
 
 </LinearLayout>

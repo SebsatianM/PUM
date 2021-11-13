@@ -19,22 +19,22 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView,resultView,correctView,incorrectView,debugView;
-    private Button trueButton,falseButton,nextButton,previousButton,restartButton;
+    private TextView textView,resultView,correctView,incorrectView,cheatedAnswersView;
+    private Button trueButton,falseButton,nextButton,previousButton,restartButton,showAnswer,browseButton;
     private int QuestionPointer;
-    public static final String ANSWER = "pl.edu.uwr.pum.physicsquizjava.ANSWER";
+    public static final String ANSWER_MESSAGE = "pl.edu.uwr.pum.physicsquizjava.MESSAGE";
 
     private final Question[] questions = new Question[]{
             new Question(R.string.question1, true),
             new Question(R.string.question2, true),
             new Question(R.string.question3, true),
-            new Question(R.string.question4, true),
-            //new Question(R.string.question6, true),
-            //new Question(R.string.question7, true),
-            //new Question(R.string.question8, true),
-            //new Question(R.string.question5, true),
-            //new Question(R.string.question9, true),
-            //new Question(R.string.question10, true),
+            new Question(R.string.question4, false),
+            new Question(R.string.question5, true),
+            new Question(R.string.question6, true),
+            new Question(R.string.question7, false),
+            new Question(R.string.question8, true),
+            new Question(R.string.question9, true),
+            new Question(R.string.question10, true),
 
 
     };
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public int[] IsAnswered = new int[QuestionsNumber];     //array that control if user answered to direct question
     public boolean answer;                                  //
     public int AnsweredQuestions;
-    public int score;
+    public Double score;
     public int correctAnswers;
     public int incorrectAnswers;
 
@@ -54,13 +54,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AnsweredQuestions = 0;
-        score = 0;
+        score = 0.0;
         correctAnswers = 0;
         incorrectAnswers = 0;
         QuestionPointer = 0;
         buttonPressed = 0;
 
-        debugView = findViewById(R.id.debug);
         textView = findViewById(R.id.question_text);
         resultView = findViewById(R.id.score_text);
         correctView = findViewById(R.id.correct_answers);
@@ -70,14 +69,17 @@ public class MainActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.next_button);
         previousButton = findViewById(R.id.previous_button);
         restartButton = findViewById(R.id.restart_button);
+        showAnswer = findViewById(R.id.showAnswer_button);
+        browseButton = findViewById(R.id.browse_button);
+        cheatedAnswersView = findViewById(R.id.cheated_answers);
         textView.setText(questions[QuestionPointer].getTextId());
-        debugView.setText(Integer.toString(AnsweredQuestions)+Integer.toString(QuestionsNumber));
+
 
 
         if(savedInstanceState != null) {
 
             AnsweredQuestions = savedInstanceState.getInt("AnsweredQuestions_state");
-            score = savedInstanceState.getInt("score_state");
+            score = savedInstanceState.getDouble("score_state");
             correctAnswers = savedInstanceState.getInt("correctAnswers_state");
             incorrectAnswers = savedInstanceState.getInt("incorrectAnswers_state");
             QuestionPointer = savedInstanceState.getInt("QuestionPointer_state");
@@ -86,9 +88,11 @@ public class MainActivity extends AppCompatActivity {
             falseButton.setVisibility(savedInstanceState.getInt("falseButton_state"));
             nextButton.setVisibility(savedInstanceState.getInt("nextButton_state"));
             previousButton.setVisibility(savedInstanceState.getInt("previousButton_state"));
+            browseButton.setVisibility(savedInstanceState.getInt("browseButton_state"));
             textView.setVisibility(savedInstanceState.getInt("textView_state"));
             restartButton.setVisibility(savedInstanceState.getInt("restartButton_state"));
             resultView.setVisibility(savedInstanceState.getInt("resultView_state"));
+            cheatedAnswersView.setVisibility(savedInstanceState.getInt("cheatedAnswersView_state"));
             correctView.setVisibility(savedInstanceState.getInt("correctView_state"));
             incorrectView.setVisibility(savedInstanceState.getInt("incorrectView_state"));
 
@@ -97,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
             buttonState = savedInstanceState.getBoolean("buttonState_state");
             answer = savedInstanceState.getBoolean("answer_state");
             textView.setText(questions[QuestionPointer].getTextId());
-            resultView.setText("Result: "+Integer.toString(score));
+            resultView.setText("Result: "+Double.toString(score));
+            cheatedAnswersView.setText("Cheated answers: "+ Integer.toString(CheatActivity.cheatCounter));
             correctView.setText("Correct answers: " + Integer.toString(correctAnswers));
             incorrectView.setText("Inorrect answers: " + Integer.toString(incorrectAnswers));
 
@@ -114,23 +119,22 @@ public class MainActivity extends AppCompatActivity {
         if (AnsweredQuestions < QuestionsNumber) {
             if (IsAnswered[QuestionPointer]!=1) {
                 if (buttonPressed == 1) {
-                    AnsweredQuestions+=1;
-                        answer = questions[QuestionPointer].isAnswer();
-                        if (answer == buttonState) {
-                            score+=1;
-                            correctAnswers+=1;
-                            IsAnswered[QuestionPointer]=1;
-                        }else {
-                            score -= 1;
-                            incorrectAnswers += 1;
-                            IsAnswered[QuestionPointer] = 1;
-                        }
-                        if (AnsweredQuestions >= QuestionsNumber) {
-                            showResults();
-                        }
+                    AnsweredQuestions += 1;
+                    answer = questions[QuestionPointer].isAnswer();
+                    if (answer == buttonState) {
+                        score += 1.0;
+                        correctAnswers += 1;
+                        IsAnswered[QuestionPointer] = 1;
+                    } else {
+                        score-= 1.0;
+                        incorrectAnswers += 1;
+                        IsAnswered[QuestionPointer] = 1;
+                    }
+                    if (AnsweredQuestions >= QuestionsNumber) {
+                        showResults();
+                    }
 
                 }
-                debugView.setText(Integer.toString(AnsweredQuestions)+Integer.toString(QuestionsNumber)+Integer.toString(correctAnswers));
             }
 
             if (QuestionPointer == QuestionsNumber-1)
@@ -145,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         showResults();
 
         }
-
 
         buttonPressed = 0;
     }
@@ -162,16 +165,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeQuestion(int qstPointer) {
         textView.setText(questions[qstPointer].getTextId());
+        showAnswer.setVisibility(Button.GONE);
     }
 
     public void changeStateTrue(View view) {
         buttonPressed = 1;
         buttonState = true;
+        showAnswer.setVisibility(Button.VISIBLE);
     }
 
     public void changeStateFalse(View view) {
         buttonPressed = 1;
         buttonState = false;
+        showAnswer.setVisibility(Button.VISIBLE);
     }
 
     public void showResults() {
@@ -182,11 +188,20 @@ public class MainActivity extends AppCompatActivity {
         previousButton.setVisibility(Button.GONE);
         textView.setVisibility(TextView.GONE);
         restartButton.setVisibility(Button.VISIBLE);
+        browseButton.setVisibility(Button.GONE);
 
+        if(CheatActivity.cheatCounter>6){
+            score = 0.0;
+        }
+        else {
+            score = score * (1-(CheatActivity.cheatCounter * 0.15));
+        }
 
         resultView.setVisibility(TextView.VISIBLE);
-        resultView.setText("Result: "+Integer.toString(score));
+        resultView.setText("Result: "+Double.toString(score));
 
+        cheatedAnswersView.setVisibility(TextView.VISIBLE);
+        cheatedAnswersView.setText("Cheated answers "+Integer.toString(CheatActivity.cheatCounter));
 
         correctView.setVisibility(TextView.VISIBLE);
         correctView.setText("Correct answers: " + Integer.toString(correctAnswers));
@@ -202,14 +217,18 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setVisibility(Button.VISIBLE);
         previousButton.setVisibility(Button.VISIBLE);
         textView.setVisibility(TextView.VISIBLE);
+        browseButton.setVisibility(Button.VISIBLE);
         restartButton.setVisibility(Button.GONE);
         resultView.setVisibility(TextView.GONE);
+        cheatedAnswersView.setVisibility(TextView.GONE);
         correctView.setVisibility(TextView.GONE);
         incorrectView.setVisibility(TextView.GONE);
+        showAnswer.setVisibility(Button.GONE);
+
         AnsweredQuestions = 0;
         correctAnswers = 0;
         incorrectAnswers = 0;
-        score = 0;
+        score = 0.0;
         IsAnswered = new int[IsAnswered.length];
     }
     @Override
@@ -217,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(saveState);
 
         saveState.putInt("AnsweredQuestions_state", AnsweredQuestions);
-        saveState.putInt("score_state", score);
+        saveState.putDouble("score_state", score);
         saveState.putInt("correctAnswers_state", correctAnswers);
         saveState.putInt("incorrectAnswers_state", incorrectAnswers);
         saveState.putInt("QuestionPointer_state", QuestionPointer);
@@ -226,9 +245,11 @@ public class MainActivity extends AppCompatActivity {
         saveState.putInt("falseButton_state", falseButton.getVisibility());
         saveState.putInt("nextButton_state", nextButton.getVisibility());
         saveState.putInt("previousButton_state", previousButton.getVisibility());
+        saveState.putInt("browseButton_state", browseButton.getVisibility());
         saveState.putInt("textView_state", textView.getVisibility());
         saveState.putInt("restartButton_state", restartButton.getVisibility());
         saveState.putInt("resultView_state", resultView.getVisibility());
+        saveState.putInt("cheatedAnswersView_state", cheatedAnswersView.getVisibility());
         saveState.putInt("correctView_state", correctView.getVisibility());
         saveState.putInt("incorrectView_state", incorrectView.getVisibility());
 
@@ -239,7 +260,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showCheatActivity(View view) {
+        String message = Boolean.toString(questions[QuestionPointer].isAnswer());
         Intent intent = new Intent(this, CheatActivity.class);
+        intent.putExtra(ANSWER_MESSAGE, message);
         startActivity(intent);
     }
 
