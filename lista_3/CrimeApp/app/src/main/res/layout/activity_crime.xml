@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrimeActivity"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#909090"/>
+
+    <EditText
+        android:id="@+id/renameCrimeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Enter a title for the crime."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#909090"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Details"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#909090"/>
+
+    <Button
+        android:id="@+id/showCrimeDate"
+        android:onClick="showDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show date"/>
+
+    <CheckBox
+        android:id="@+id/solvedCrimeCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Solved"/>
+
+    <Button
+        android:id="@+id/removeCrimeButton"
+        android:onClick="removeCrime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove this crime"/>
+
+
+</LinearLayout>

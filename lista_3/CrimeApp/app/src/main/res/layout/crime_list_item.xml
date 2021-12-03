@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/crimeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingLeft="10sp"
+        android:text="Crime title"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:id="@+id/handcuffs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#ffffff"
+        android:src="@drawable/handcuffs"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/crimeDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/crimeName"
+        android:background="#FFFFFF"
+        android:paddingLeft="10sp"
+        android:text="Thu Nov 17 10:52:28 EST 2016"
+        android:textSize="18sp"
+        android:textStyle="normal" />
+
+</RelativeLayout>
