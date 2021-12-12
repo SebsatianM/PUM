@@ -57,10 +57,26 @@
 
     <Button
         android:id="@+id/removeCrimeButton"
-        android:onClick="removeCrime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Remove this crime"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginTop="50sp"
+        android:height="50sp"
+        android:text="Last crime"
+        android:onClick="goToLastItem"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginTop="-50sp"
+        android:height="50sp"
+        android:text="First crime"
+        android:onClick="goToFristItem"/>
 
 </LinearLayout>

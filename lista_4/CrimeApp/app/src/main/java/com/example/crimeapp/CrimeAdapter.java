@@ -51,7 +51,7 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
             intent.putExtra("id", current.getId().toString());
             context.startActivity(intent);
         }
-        }
+    }
 
 
     @NonNull

@@ -1,6 +1,5 @@
 package com.example.crimeapp;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         recyclerView = findViewById(R.id.recyclerView);
         crimeAdapter = new CrimeAdapter(this,crimeList);
