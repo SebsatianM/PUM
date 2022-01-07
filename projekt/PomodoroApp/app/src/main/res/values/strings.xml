@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PomodoroApp</string>
+    <string name="name">Pomodoro Timer</string>
+    <string name="initial_info">Tap tomatoe to continue</string>
+</resources>
