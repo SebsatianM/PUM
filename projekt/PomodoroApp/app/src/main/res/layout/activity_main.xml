@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-
-    android:background="@color/red_welcome"
+    android:background="@drawable/background"
     >
 
     <TextView
@@ -42,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lobster"
+        android:onClick="startNewActivity"
         android:text="@string/initial_info"
         android:textSize="25sp"
         android:textStyle="italic"

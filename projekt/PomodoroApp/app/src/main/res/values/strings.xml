@@ -2,4 +2,14 @@
     <string name="app_name">PomodoroApp</string>
     <string name="name">Pomodoro Timer</string>
     <string name="initial_info">Tap tomatoe to continue</string>
+    <string name="login_dialog_title">Do You want to skip logging in?</string>
+    <string name="login_dialog_message">If You are not logged in your sessions will not be saved</string>
+    <string name="login_image_view">Sign in</string>
+    <string name="skip_login_button">skip login</string>
+    <string name="social_logins">or sign in with</string>
+    <string name="sign_out_button">sign out</string>
+    <string name="nav_bar_open">Open navigation bar</string>
+    <string name="nav_bar_close">Close navigation bar</string>
+    <string name="pomodoro_information">About pomodoro</string>
+    <string name="pomodoro_description">About pomodoro</string>
 </resources>

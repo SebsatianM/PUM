@@ -2,12 +2,11 @@ package com.example.pomodoroapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +34,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 welcome_icon.startAnimation(animZoomOut);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animZoomOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -47,4 +64,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    public void startNewActivity(View view) { //this is debug option
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
