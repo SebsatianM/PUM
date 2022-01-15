@@ -12,4 +12,6 @@
     <string name="nav_bar_close">Close navigation bar</string>
     <string name="pomodoro_information">About pomodoro</string>
     <string name="pomodoro_description">About pomodoro</string>
+    <string name="save_settings_button">Save this settings</string>
+    <string name="number_required">You must type a number</string>
 </resources>

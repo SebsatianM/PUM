@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.pomodoroapp">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,30 +12,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PomodoroApp"
-        >
+        android:usesCleartextTraffic="true">
+
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".AppActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".AppActivity" />
         <activity
             android:name=".SessionsActivity"
-            android:parentActivityName=".AppActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".AppActivity" />
         <activity
             android:name=".AppActivity"
-            android:parentActivityName=".LoginActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
