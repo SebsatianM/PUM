@@ -8,8 +8,6 @@
     android:background="@drawable/background_app"
     android:fitsSystemWindows="true"
     tools:context=".AppActivity">
-<!--    tools:openDrawer="start"-->
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="showSettings"/>
+            />
 
         <TextView
             android:id="@+id/stateInfo"
@@ -60,7 +58,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -72,7 +69,6 @@
                 android:progress="0"
                 android:progressDrawable="@drawable/custom_progressbar"
                 android:secondaryProgress="0" />
-
 
             <TextView
                 android:id="@+id/txtProgress"
@@ -104,10 +100,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reset"
-                android:backgroundTint="@color/design_default_color_secondary"
-                />
+                android:backgroundTint="@color/design_default_color_secondary" />
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -117,7 +113,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

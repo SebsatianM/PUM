@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -48,32 +47,28 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                                 Intent intent = new Intent(LoginActivity.this, AppActivity.class);
                                 startActivity(intent);
-                                Toast.makeText(getApplicationContext(),"you decided to not log in",
+                                Toast.makeText(getApplicationContext(), "you decided to not log in",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
                                 dialog.cancel();
-                                Toast.makeText(getApplicationContext(),"you decided to log in",
+                                Toast.makeText(getApplicationContext(), "you decided to log in",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                //Creating dialog box
                 AlertDialog alert = builder.create();
                 alert.setTitle(R.string.login_dialog_title);
                 alert.show();
             }
         });
 
-
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
+        gsc = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null)
-        {
+        if (acct != null) {
             navigateToAppActivity();
         }
         googleButton.setOnClickListener(new View.OnClickListener() {
@@ -84,15 +79,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    void signIn(){
+    void signIn() {
         Intent signIntent = gsc.getSignInIntent();
-        startActivityForResult(signIntent,1000);
+        startActivityForResult(signIntent, 1000);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1000){
+        if (requestCode == 1000) {
+
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
@@ -100,13 +96,12 @@ public class LoginActivity extends AppCompatActivity {
                 navigateToAppActivity();
 
             } catch (ApiException e) {
-                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
-    void navigateToAppActivity(){
+    void navigateToAppActivity() {
         finish();
         Intent intent = new Intent(LoginActivity.this, AppActivity.class);
         startActivity(intent);

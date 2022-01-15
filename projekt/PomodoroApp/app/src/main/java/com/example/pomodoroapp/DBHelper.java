@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
@@ -17,15 +14,14 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create Table if not exists userSettings(id TEXT primary key, session_length INTEGER, break_length INTEGER)");
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (newVersion > oldVersion) {
-                db.execSQL("create Table if not exists userSessions(id TEXT primary key, user_id TEXT, session_date TEXT, session_length TEXT,break_length TEXT )");
-            }
+        if (newVersion > oldVersion) {
+            db.execSQL("create Table if not exists userSessions(id TEXT primary key, user_id TEXT, session_date TEXT, session_length TEXT,break_length TEXT )");
         }
+    }
 
     public Boolean insertSettings(String ID, Integer sessionLength, Integer breakLength) {
 
@@ -65,21 +61,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public Boolean insertSession(String User_id,String Date, String sessionLength, String breakLength) {
+    public Boolean insertSession(String User_id, String Date, String sessionLength, String breakLength) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM userSessions",null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM userSessions", null);
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
             buffer.append(cursor.getString(0));
         }
-        Integer ID = Integer.parseInt(buffer.substring(0,buffer.length()));
-
+        Integer ID = Integer.parseInt(buffer.substring(0, buffer.length()));
         contentValues.put("id", ID);
-        contentValues.put("user_id",User_id);
-        contentValues.put("session_date",Date);
+        contentValues.put("user_id", User_id);
+        contentValues.put("session_date", Date);
         contentValues.put("session_length", sessionLength);
         contentValues.put("break_length", breakLength);
         if (cursor.getCount() < 2) {
@@ -100,6 +95,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getSessions(String user_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from userSessions where user_id = ? order by session_date DESC", new String[]{user_id});
+        return cursor;
+    }
 
 
 }

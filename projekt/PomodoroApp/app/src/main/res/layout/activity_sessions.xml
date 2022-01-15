@@ -5,18 +5,69 @@
     android:background="@drawable/background_sessions">
 
     <TextView
+        android:id="@+id/sessionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/lobster"
         android:paddingTop="20dp"
         android:text="Sessions"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/columns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sessionsTitle"
+        android:weightSum="100"
+        android:textAlignment="center">
+
+        <TextView
+            android:id="@+id/sessionDateCol"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:text="Date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/sessionLengthCol"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="35"
+            android:text="Session Time"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/breakLengthCol"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="35"
+            android:text="Break     Time"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
 
     <ImageView
+        android:id="@+id/tomatoes"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/tomatoes" />
+
+    <ListView
+        android:id="@+id/sessionListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tomatoes"
+        android:layout_below="@+id/columns"/>
+
 </RelativeLayout>

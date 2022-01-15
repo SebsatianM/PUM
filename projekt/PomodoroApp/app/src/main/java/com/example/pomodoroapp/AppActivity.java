@@ -1,6 +1,5 @@
 package com.example.pomodoroapp;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -21,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -40,8 +37,8 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     String userName = "You are not logged in", userEmail = "You are not logged in", userID = "default", timeString;
-    TextView userNameTextView, userEmailTextView,stateInfo;
-    Integer sessionTime = 25, breakTime = 5, pStatus = 0, sessionTotalSeconds=0, breakTotalSeconds=0, minutes=0, seconds=0, elapsedSeconds = 0, remainingSeconds=0;
+    TextView userNameTextView, userEmailTextView, stateInfo;
+    Integer sessionTime = 25, breakTime = 5, pStatus = 0, sessionTotalSeconds = 0, breakTotalSeconds = 0, minutes = 0, seconds = 0, elapsedSeconds = 0, remainingSeconds = 0;
     double sessionPercentage;
     AlertDialog.Builder builder;
     private DrawerLayout drawer;
@@ -49,14 +46,12 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
     private TextView progressBarText;
     private ProgressBar progressBar;
     private CountDownTimer countDownTimer;
-    private long sessionTimeLeft=0, breakTimeLeft=0;
+    private long sessionTimeLeft = 0, breakTimeLeft = 0;
     private Button startSessionButton, resetSessionButton;
-    private boolean sessionTimerRunning=false, breakTimerRunning=false, sessionRunning = true, breakRunning = false;
-
+    private boolean sessionTimerRunning = false, breakTimerRunning = false, sessionRunning = true, breakRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
 
@@ -64,6 +59,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         gsc = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
         if (acct != null) {
             userName = acct.getDisplayName();
             userEmail = acct.getEmail();
@@ -73,14 +69,13 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         } else {
             setUpNavigationBar(userName, userEmail);
         }
-        db = new DBHelper(this);
-        db.insertSettings(userID, sessionTime, breakTime);
-//        initDatabase();
+
+        initDatabase();
         setUpToolbar();
         initTimer();
         getSessionSettings();
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             sessionTime = savedInstanceState.getInt("sessionTime");
             breakTime = savedInstanceState.getInt("breakTime");
             pStatus = savedInstanceState.getInt("pStatus");
@@ -105,9 +100,9 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
             sessionRunning = savedInstanceState.getBoolean("sessionRunning");
             breakRunning = savedInstanceState.getBoolean("breakRunning");
 
-            if(sessionRunning){
+            if (sessionRunning) {
                 startSessionTimer();
-            }else {
+            } else {
                 startBreakTimer();
             }
         }
@@ -135,7 +130,6 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         userEmailTextView = headerView.findViewById(R.id.userEmail);
         userNameTextView.setText(userName);
         userEmailTextView.setText(userEmail);
-
     }
 
     void setUpToolbar() {
@@ -181,7 +175,6 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                //Creating dialog box
                 AlertDialog alert = builder.create();
                 alert.setTitle(R.string.pomodoro_information);
                 alert.show();
@@ -193,14 +186,9 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
-    public void showSettings(View view) {
-        insertSession();
-
-    }
-
     private void initDatabase() {
-
-
+        db = new DBHelper(this);
+        db.insertSettings(userID, sessionTime, breakTime);
     }
 
     public void getSessionSettings() {
@@ -215,6 +203,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
             buffer.append(resultSettings.getString(0) + " ");
             buffer.append(resultSettings.getString(1));
         }
+
         sessionTime = Integer.parseInt(buffer.substring(0, buffer.indexOf(" ")));
         breakTime = Integer.parseInt(buffer.substring(buffer.indexOf(" ") + 1, buffer.length()));
 
@@ -231,12 +220,14 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         stateInfo = findViewById(R.id.stateInfo);
         progressBarText = findViewById(R.id.txtProgress);
         progressBar = findViewById(R.id.progressBar);
+
         startSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startStopSession();
             }
         });
+
         resetSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,23 +241,21 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
             stateInfo.setText("You are during session");
             if (sessionTimerRunning) {
                 stopSessionTimer();
-                Toast.makeText(getApplicationContext(), "Session", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Session has been paused", Toast.LENGTH_SHORT).show();
             } else {
                 startSessionTimer();
-                Toast.makeText(getApplicationContext(), "session", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "session has been resumed", Toast.LENGTH_SHORT).show();
             }
-        } else{
+        } else {
             stateInfo.setText("You are during break");
             if (breakTimerRunning) {
                 stopBreakTimer();
-                Toast.makeText(getApplicationContext(), "Break", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Break has been paused", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Break", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Break has been resumed", Toast.LENGTH_SHORT).show();
                 startBreakTimer();
             }
         }
-
-
     }
 
     public void startSessionTimer() {
@@ -286,6 +275,7 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
                 startStopSession();
             }
         }.start();
+
         startSessionButton.setText("PAUSE");
         sessionTimerRunning = true;
     }
@@ -300,10 +290,11 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         remainingSeconds = (int) timeLeft / 1000;
         seconds = remainingSeconds % 60;
         minutes = (remainingSeconds / 60) % 60;
-        if (sessionRunning){
+
+        if (sessionRunning) {
             elapsedSeconds = sessionTotalSeconds - remainingSeconds;
             sessionPercentage = (100 * elapsedSeconds / sessionTotalSeconds);
-        }else if(breakRunning){
+        } else if (breakRunning) {
             elapsedSeconds = breakTotalSeconds - remainingSeconds;
             sessionPercentage = (100 * elapsedSeconds / breakTotalSeconds);
         }
@@ -316,20 +307,21 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
 
     public void resetSession() {
         countDownTimer.cancel();
+
         if (sessionRunning && !breakRunning) {
             sessionTimerRunning = false;
             sessionTimeLeft = sessionTime * 60000;
             sessionTotalSeconds = sessionTime * 60;
-        }else if(!sessionRunning  && breakRunning) {
+        } else if (!sessionRunning && breakRunning) {
             breakTimerRunning = false;
             breakTimeLeft = breakTime * 60000;
-            breakTotalSeconds = breakTime *60;
+            breakTotalSeconds = breakTime * 60;
         }
         sessionTimerRunning = false;
         startSessionButton.setText("START");
         progressBarText.setText("");
+        stateInfo.setText("");
         progressBar.setProgress(0);
-
     }
 
     public void startBreakTimer() {
@@ -363,49 +355,50 @@ public class AppActivity extends AppCompatActivity implements NavigationView.OnN
         startSessionButton.setText("RESUME");
         breakTimerRunning = false;
     }
-    public void insertSession(){
+
+    public void insertSession() {
         String date = getCurrentTimeStamp();
 
-        db.insertSession(userID, date ,Integer.toString(sessionTime), Integer.toString(breakTime));
+        db.insertSession(userID, date, Integer.toString(sessionTime), Integer.toString(breakTime));
     }
 
-    public static String getCurrentTimeStamp(){
+    public static String getCurrentTimeStamp() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentDateTime = dateFormat.format(new Date());
             return currentDateTime;
         } catch (Exception e) {
             e.printStackTrace();
-
             return null;
         }
     }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("sessionTime",sessionTime);
-        savedInstanceState.putInt("breakTime",breakTime);
-        savedInstanceState.putInt("pStatus",pStatus);
-        savedInstanceState.putInt("sessionTotalSeconds",sessionTotalSeconds);
-        savedInstanceState.putInt("breakTotalSeconds",breakTotalSeconds);
-        savedInstanceState.putInt("minutes",minutes);
-        savedInstanceState.putInt("seconds",seconds);
-        savedInstanceState.putInt("elapsedSeconds",elapsedSeconds);
-        savedInstanceState.putInt("remainingSeconds",remainingSeconds);
-        savedInstanceState.putInt("progressBarVal",progressBar.getProgress());
+        savedInstanceState.putInt("sessionTime", sessionTime);
+        savedInstanceState.putInt("breakTime", breakTime);
+        savedInstanceState.putInt("pStatus", pStatus);
+        savedInstanceState.putInt("sessionTotalSeconds", sessionTotalSeconds);
+        savedInstanceState.putInt("breakTotalSeconds", breakTotalSeconds);
+        savedInstanceState.putInt("minutes", minutes);
+        savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putInt("elapsedSeconds", elapsedSeconds);
+        savedInstanceState.putInt("remainingSeconds", remainingSeconds);
+        savedInstanceState.putInt("progressBarVal", progressBar.getProgress());
 
-        savedInstanceState.putLong("sessionTimeLeft",sessionTimeLeft);
-        savedInstanceState.putLong("breakTimeLeft",breakTimeLeft);
+        savedInstanceState.putLong("sessionTimeLeft", sessionTimeLeft);
+        savedInstanceState.putLong("breakTimeLeft", breakTimeLeft);
 
-        savedInstanceState.putString("stateInfoText",String.valueOf(stateInfo.getText()));
+        savedInstanceState.putString("stateInfoText", String.valueOf(stateInfo.getText()));
         savedInstanceState.putString("startSessionButtonText", String.valueOf(startSessionButton.getText()));
         savedInstanceState.putString("resetSessionButtonText", String.valueOf(resetSessionButton.getText()));
         savedInstanceState.putString("progressBarTextVal", String.valueOf(progressBarText.getText()));
 
-        savedInstanceState.putBoolean("sessionTimerRunning",sessionTimerRunning);
-        savedInstanceState.putBoolean("breakTimerRunning",breakTimerRunning);
-        savedInstanceState.putBoolean("sessionRunning",sessionRunning);
-        savedInstanceState.putBoolean("breakRunning",breakRunning);
+        savedInstanceState.putBoolean("sessionTimerRunning", sessionTimerRunning);
+        savedInstanceState.putBoolean("breakTimerRunning", breakTimerRunning);
+        savedInstanceState.putBoolean("sessionRunning", sessionRunning);
+        savedInstanceState.putBoolean("breakRunning", breakRunning);
     }
 }
 
